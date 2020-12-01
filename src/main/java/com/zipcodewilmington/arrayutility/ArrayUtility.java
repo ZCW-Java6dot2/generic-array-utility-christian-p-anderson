@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class ArrayUtility<T> {
 
-    private ArrayList<T> newList;
+    private final ArrayList<T> newList;
     private T[] inputArray;
 
     public ArrayUtility(T[] inputArray) {
@@ -50,9 +50,26 @@ public class ArrayUtility<T> {
         return result;
     }
 
-    public Integer getNumberOfOccurrences(T[] inputArray, T t ) { // t is the value to evaluate
+    public Integer getNumberOfOccurrences(T valueToEvaluate) {
+        return Collections.frequency(this.newList, valueToEvaluate);
+    }
 
-        return null;
+    public T[] removeValue(T valueToRemove) {
+        int numberOfOccurrences = getNumberOfOccurrences(valueToRemove);
+
+        T[] results = Arrays.copyOf(inputArray, inputArray.length - numberOfOccurrences);
+
+        int j = 0; // need to track what we put in results array appropriately
+
+        for (int i = 0; i < inputArray.length; i++) {
+            if (inputArray[i] != valueToRemove) {
+                results[j] = inputArray[i];
+                j++;
+            }
+        }
+
+        return results;
+
     }
 
 }
